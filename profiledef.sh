@@ -1,21 +1,32 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC2034
 
-iso_name="archlinux-baseline"
+# ISO metadata
+iso_name="archlinux"
 iso_label="ARCH_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
-iso_publisher="Arch Linux <https://archlinux.org>"
-iso_application="Arch Linux baseline"
-iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)"
+iso_version="latest"
 install_dir="arch"
-buildmodes=('iso')
-bootmodes=('bios.syslinux.mbr' 'bios.syslinux.eltorito'
-           'uefi-ia32.grub.esp' 'uefi-x64.grub.esp'
-           'uefi-ia32.grub.eltorito' 'uefi-x64.grub.eltorito')
+
+# Architecture and build modes
 arch="x86_64"
+buildmodes=('iso')
+bootmodes=(
+  'bios.syslinux.eltorito'
+  'bios.syslinux.mbr'
+  'uefi-x64.grub.eltorito'
+  'uefi-x64.grub.esp'
+)
+
+# pacman configuration
 pacman_conf="pacman.conf"
-airootfs_image_type="erofs"
-airootfs_image_tool_options=('-zlzma,109' -E 'ztailpacking')
-bootstrap_tarball_compression=(zstd -c -T0 --long -19)
 file_permissions=(
   ["/etc/shadow"]="0:0:400"
+)
+
+# airootfs image configuration
+airootfs_image_type="squashfs"
+airootfs_image_tool_options=(
+  '-comp' 'xz'
+  '-Xbcj' 'x86'
+  '-b' '1M'
+  '-Xdict-size' '1M'
 )
