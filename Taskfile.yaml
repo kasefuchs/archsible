@@ -1,0 +1,14 @@
+---
+version: 3
+
+vars:
+  ARCHISO_OUTPUT_DIRECTORY: ./output/
+  ARCHISO_WORKING_DIRECTORY:
+    sh: mktemp --directory --tmpdir=/tmp/ archiso.XXXXXXXXXX
+
+tasks:
+  build:
+    # language="shell script"
+    cmds:
+      - mkarchiso -v -w "{{ .ARCHISO_WORKING_DIRECTORY }}" -o "{{ .ARCHISO_OUTPUT_DIRECTORY }}" .
+      - rm --recursive --force "{{ .ARCHISO_WORKING_DIRECTORY }}"
