@@ -5,12 +5,13 @@ base
 btrfs-progs
 dosfstools
 edk2-shell
+fish
 intel-ucode
 linux
 linux-firmware
 lvm2
-memtest86+
 memtest86+-efi
+micro
 mkinitcpio
 mkinitcpio-archiso
 networkmanager
@@ -18,5 +19,3 @@ parted
 pv
 reflector
 sudo
-syslinux
-zsh

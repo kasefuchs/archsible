@@ -3,12 +3,22 @@ version: 3
 
 vars:
   ARCHISO_OUTPUT_DIRECTORY: ./output/
-  ARCHISO_WORKING_DIRECTORY:
-    sh: mktemp --directory --tmpdir=/tmp/ archiso.XXXXXXXXXX
 
 tasks:
+  run:
+    # language="shell script"
+    cmd: >
+      run_archiso
+      -u {{ if .ARCHISO_SECURE_BOOT -}} -s {{- end }}
+      -d -i "{{ .ARCHISO_IMAGE_PATH }}"
+    vars:
+      ARCHISO_IMAGE_PATH: "{{ .ARCHISO_OUTPUT_DIRECTORY }}/archlinux-latest-x86_64.iso"
+
   build:
     # language="shell script"
     cmds:
       - mkarchiso -v -w "{{ .ARCHISO_WORKING_DIRECTORY }}" -o "{{ .ARCHISO_OUTPUT_DIRECTORY }}" .
       - rm --recursive --force "{{ .ARCHISO_WORKING_DIRECTORY }}"
+    vars:
+      ARCHISO_WORKING_DIRECTORY:
+        sh: mktemp --directory --tmpdir=/tmp/ mkarchiso.XXXXXXXXXX
