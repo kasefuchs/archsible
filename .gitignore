@@ -1,9 +1,19 @@
-# IDE
+# --- IDE / Editor ---
 .idea/
 .vscode/
 
-# ArchISO
+# --- ArchISO ---
+# Build artifacts
 output/
 
-# SSH
-authorized_keys
+# Authorized SSH keys
+airootfs/root/.ssh/authorized_keys
+
+# --- Ansible ---
+# Ansible runtime cache
+.ansible/
+
+# Ansible inventories
+airootfs/opt/ansible/inventories/*
+!airootfs/opt/ansible/inventories/local/
+!airootfs/opt/ansible/inventories/local/**

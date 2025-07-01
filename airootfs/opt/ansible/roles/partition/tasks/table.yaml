@@ -1,0 +1,13 @@
+---
+- name: Configure partition table
+  loop: "{{ partition_table_items }}"
+  loop_control:
+    label: "{{ item.device }}{{ 'p' if item.device[-1] is match('\\d') else '' }}{{ item.number }}"
+  community.general.parted:
+    device: "{{ item.device }}"
+    number: "{{ item.number }}"
+    flags: "{{ item.flags }}"
+    part_start: "{{ item.start }}"
+    part_end: "{{ item.end }}"
+    label: "{{ partition_table_label }}"
+    state: present

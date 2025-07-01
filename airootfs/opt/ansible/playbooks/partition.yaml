@@ -1,0 +1,6 @@
+---
+- name: Configure partitions
+  hosts: all
+  become: true
+  roles:
+    - partition

@@ -1,0 +1,19 @@
+---
+# List of partitions to create on the target device.
+# 260MiB ESP: chosen as it's the next 4 MiB-aligned size above FAT32's ~256MiB minimum.
+# See: https://superuser.com/a/1717643
+partition_table_items:
+  - device: "{{ partition_device }}"
+    number: 1
+    start: 0%
+    end: 260MiB
+    flags:
+      - esp
+      - boot
+
+  - device: "{{ partition_device }}"
+    number: 2
+    start: 260MiB
+    end: 100%
+    flags:
+      - lvm

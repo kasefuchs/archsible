@@ -1,0 +1,7 @@
+---
+- name: Configure partition table
+  tags: table
+  ansible.builtin.include_tasks:
+    file: table.yaml
+    apply:
+      tags: table
