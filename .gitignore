@@ -4,3 +4,6 @@
 
 # ArchISO
 output/
+
+# SSH
+authorized_keys

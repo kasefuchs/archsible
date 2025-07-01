@@ -14,6 +14,9 @@ bootmodes=('uefi-x64.systemd-boot.esp')
 pacman_conf="pacman.conf"
 file_permissions=(
   ["/etc/shadow"]="0:0:400"
+  ["/root"]="0:0:0750"
+  ["/root/.ssh"]="0:0:0700"
+  ["/root/.ssh/authorized_keys"]="0:0:0600"
 )
 
 # airootfs image configuration
