@@ -1,3 +1,0 @@
----
-# Block device where partition table will be created.
-partition_device: /dev/vda

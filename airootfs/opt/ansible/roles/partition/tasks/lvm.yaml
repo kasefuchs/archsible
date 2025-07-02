@@ -1,0 +1,27 @@
+---
+- name: Configure LVM volume groups
+  loop: "{{ partition_lvm_groups }}"
+  loop_control:
+    label: "{{ item.name }}"
+  community.general.lvg:
+    vg: "{{ item.name }}"
+    pvs: "{{ item.devices }}"
+
+- name: Configure LVM logical volumes
+  loop: "{{ partition_lvm_volumes }}"
+  loop_control:
+    label: "{{ item.name }}"
+  community.general.lvol:
+    vg: "{{ item.group | default(partition_lvm_group_name) }}"
+    lv: "{{ item.name }}"
+    size: "{{ item.size }}"
+
+- name: Configure filesystems
+  loop: "{{ partition_lvm_filesystems }}"
+  loop_control:
+    label: "{{ (item.group | default(partition_lvm_group_name), item.name) | lvm_mapper_path }}"
+  community.general.filesystem:
+    device: "{{ (item.group | default(partition_lvm_group_name), item.name) | lvm_mapper_path }}"
+    fstype: "{{ item.type }}"
+    force: "{{ item.force | default(omit) }}"
+    opts: "{{ item.options | default(omit) }}"

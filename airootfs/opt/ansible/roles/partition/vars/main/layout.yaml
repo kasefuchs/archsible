@@ -1,3 +1,3 @@
 ---
 # Partition table type to use.
-partition_table_label: gpt
+partition_layout_table_type: gpt

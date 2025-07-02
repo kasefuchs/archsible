@@ -1,0 +1,40 @@
+---
+# Name of the default LVM volume group used across the system.
+partition_lvm_group_name: "vg.{{ common_hostname }}"
+
+# LVM volume groups with associated devices.
+partition_lvm_groups:
+  - name: "{{ partition_lvm_group_name }}"
+    devices:
+      - "{{ (partition_layout_device, 2) | join_device_partition }}"
+
+# Logical volumes to create within the LVM groups.
+partition_lvm_volumes:
+  - name: boot
+    size: 512M
+  - name: root
+    size: 16G
+  - name: var
+    size: 8G
+  - name: log
+    size: 512M
+  - name: home
+    size: 32G
+  - name: games
+    size: 4G
+
+# List of filesystems to create.
+partition_lvm_filesystems:
+  - name: boot
+    type: vfat
+    options: -F32
+  - name: root
+    type: ext4
+  - name: var
+    type: xfs
+  - name: log
+    type: xfs
+  - name: home
+    type: btrfs
+  - name: games
+    type: ext4

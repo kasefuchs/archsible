@@ -1,0 +1,9 @@
+---
+- name: Configure mount points
+  loop: "{{ partition_mount_table }}"
+  ansible.posix.mount:
+    src: "{{ item.device }}"
+    path: "{{ item.path }}"
+    opts: "{{ item.options | default(omit) }}"
+    state: ephemeral
+    fstype: "{{ item.type }}"

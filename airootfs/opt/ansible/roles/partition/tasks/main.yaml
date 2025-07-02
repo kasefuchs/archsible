@@ -1,14 +1,21 @@
 ---
-- name: Configure partition table
-  tags: table
+- name: Configure disk layout
+  tags: layout
   ansible.builtin.include_tasks:
-    file: table.yaml
+    file: layout.yaml
     apply:
-      tags: table
+      tags: layout
 
-- name: Configure filesystems
-  tags: filesystem
+- name: Configure LVM
+  tags: lvm
   ansible.builtin.include_tasks:
-    file: filesystem.yaml
+    file: lvm.yaml
     apply:
-      tags: filesystem
+      tags: lvm
+
+- name: Configure mount points
+  tags: mount
+  ansible.builtin.include_tasks:
+    file: mount.yaml
+    apply:
+      tags: mount

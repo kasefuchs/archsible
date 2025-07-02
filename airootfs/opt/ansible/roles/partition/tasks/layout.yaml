@@ -1,0 +1,23 @@
+---
+- name: Configure partition table
+  loop: "{{ partition_layout_table }}"
+  loop_control:
+    label: "{{ (item.device, item.number) | join_device_partition }}"
+  community.general.parted:
+    device: "{{ item.device }}"
+    number: "{{ item.number }}"
+    flags: "{{ item.flags }}"
+    part_start: "{{ item.start }}"
+    part_end: "{{ item.end }}"
+    label: "{{ partition_layout_table_type }}"
+    state: present
+
+- name: Configure filesystems
+  loop: "{{ partition_layout_filesystems }}"
+  loop_control:
+    label: "{{ item.device }}"
+  community.general.filesystem:
+    device: "{{ item.device }}"
+    fstype: "{{ item.type }}"
+    force: "{{ item.force | default(omit) }}"
+    opts: "{{ item.options | default(omit) }}"

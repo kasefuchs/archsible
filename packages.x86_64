@@ -4,6 +4,7 @@ arch-install-scripts
 base
 btrfs-progs
 dosfstools
+e2fsprogs
 fish
 inetutils
 intel-ucode
@@ -21,3 +22,4 @@ parted
 pv
 reflector
 sudo
+xfsprogs

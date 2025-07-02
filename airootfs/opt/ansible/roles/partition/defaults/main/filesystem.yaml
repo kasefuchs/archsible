@@ -1,9 +1,0 @@
----
-# List of filesystems to create.
-partition_filesystem_items:
-  - type: vfat
-    device: "{{ (partition_device, 1) | join_device_partition }}"
-    options: -F32
-
-  - type: lvm
-    device: "{{ (partition_device, 2) | join_device_partition }}"

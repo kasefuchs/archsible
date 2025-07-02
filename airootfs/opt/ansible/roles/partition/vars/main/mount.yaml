@@ -1,0 +1,3 @@
+---
+# Root directory for mounting all partitions.
+partition_mount_root: /mnt/

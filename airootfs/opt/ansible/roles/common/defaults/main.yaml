@@ -1,0 +1,3 @@
+---
+# System hostname to use, will raise an error if is not defined.
+common_hostname: "{{ undef(hint='You must specify hostname') }}"
