@@ -2,7 +2,7 @@
 - name: Configure partition table
   loop: "{{ partition_table_items }}"
   loop_control:
-    label: "{{ item.device }}{{ 'p' if item.device[-1] is match('\\d') else '' }}{{ item.number }}"
+    label: "{{ (item.device, item.number) | join_device_partition }}"
   community.general.parted:
     device: "{{ item.device }}"
     number: "{{ item.number }}"

@@ -5,3 +5,10 @@
     file: table.yaml
     apply:
       tags: table
+
+- name: Configure filesystems
+  tags: filesystem
+  ansible.builtin.include_tasks:
+    file: filesystem.yaml
+    apply:
+      tags: filesystem

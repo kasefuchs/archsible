@@ -1,0 +1,9 @@
+---
+- name: Configure filesystems
+  loop: "{{ partition_filesystem_items }}"
+  loop_control:
+    label: "{{ item.device }}: {{ item.type }}"
+  community.general.filesystem:
+    device: "{{ item.device }}"
+    fstype: "{{ item.type }}"
+    opts: "{{ item.options | default(omit) }}"
