@@ -5,11 +5,19 @@ vars:
   ARCHISO_OUTPUT_DIRECTORY: ./output/
 
 tasks:
-  run:
+  run-bios:
     # language="shell script"
     cmd: >
-      run_archiso
-      -u {{ if .ARCHISO_SECURE_BOOT -}} -s {{- end }}
+      run_archiso -b
+      -d -i "{{ .ARCHISO_IMAGE_PATH }}"
+    vars:
+      ARCHISO_IMAGE_PATH: "{{ .ARCHISO_OUTPUT_DIRECTORY }}/archlinux-latest-x86_64.iso"
+
+  run-uefi:
+    # language="shell script"
+    cmd: >
+      run_archiso -u
+      {{ if .ARCHISO_SECURE_BOOT -}} -s {{- end }}
       -d -i "{{ .ARCHISO_IMAGE_PATH }}"
     vars:
       ARCHISO_IMAGE_PATH: "{{ .ARCHISO_OUTPUT_DIRECTORY }}/archlinux-latest-x86_64.iso"
@@ -22,3 +30,12 @@ tasks:
     vars:
       ARCHISO_WORKING_DIRECTORY:
         sh: mktemp --directory --tmpdir=/tmp/ mkarchiso.XXXXXXXXXX
+
+  sort:
+    cmds:
+      - # noinspection YAMLSchemaValidation
+        for:
+          - bootstrap_packages.x86_64
+          - packages.x86_64
+        # language="shell script"
+        cmd: sort -f "{{ .ITEM }}" -o "{{ .ITEM }}"

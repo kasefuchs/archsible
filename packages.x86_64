@@ -3,8 +3,10 @@ ansible
 arch-install-scripts
 base
 btrfs-progs
+cowsay
 dosfstools
 e2fsprogs
+edk2-shell
 fish
 inetutils
 intel-ucode
@@ -13,6 +15,8 @@ linux
 linux-firmware
 lvm2
 man-db
+memtest86+
+memtest86+-efi
 micro
 mkinitcpio
 mkinitcpio-archiso
@@ -22,4 +26,5 @@ parted
 pv
 reflector
 sudo
+syslinux
 xfsprogs

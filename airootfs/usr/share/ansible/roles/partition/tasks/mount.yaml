@@ -1,6 +1,8 @@
 ---
 - name: Configure mount points
   loop: "{{ partition_mount_table }}"
+  loop_control:
+    label: "{{ item.device }} -> {{ item.path }} ({{ item.type }})"
   ansible.posix.mount:
     src: "{{ item.device }}"
     path: "{{ item.path }}"

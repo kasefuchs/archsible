@@ -4,31 +4,24 @@ partition_mount_table:
   - device: "{{ (partition_lvm_group_name, 'root') | lvm_mapper_path }}"
     path: "{{ partition_mount_root }}"
     type: ext4
-
   - device: "{{ (partition_lvm_group_name, 'boot') | lvm_mapper_path }}"
     path: "{{ (partition_mount_root, 'boot') | ansible.builtin.path_join }}"
     type: vfat
-
   - device: "{{ (partition_layout_device, 1) | join_device_partition }}"
     path: "{{ (partition_mount_root, 'boot/efi') | ansible.builtin.path_join }}"
     type: vfat
-
   - device: "{{ (partition_layout_device, 1) | join_device_partition }}"
     path: "{{ (partition_mount_root, 'efi') | ansible.builtin.path_join }}"
     type: vfat
-
   - device: "{{ (partition_lvm_group_name, 'var') | lvm_mapper_path }}"
     path: "{{ (partition_mount_root, 'var') | ansible.builtin.path_join }}"
     type: xfs
-
   - device: "{{ (partition_lvm_group_name, 'log') | lvm_mapper_path }}"
     path: "{{ (partition_mount_root, 'var/log') | ansible.builtin.path_join }}"
     type: xfs
-
   - device: "{{ (partition_lvm_group_name, 'games') | lvm_mapper_path }}"
     path: "{{ (partition_mount_root, 'var/games') | ansible.builtin.path_join }}"
     type: ext4
-
   - device: "{{ (partition_lvm_group_name, 'home') | lvm_mapper_path }}"
     path: "{{ (partition_mount_root, 'home') | ansible.builtin.path_join }}"
-    type: btrfs4
+    type: btrfs

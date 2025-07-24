@@ -1,6 +1,6 @@
 ---
-# Name of the default LVM volume group used across the system.
-partition_lvm_group_name: "vg.{{ common_hostname }}"
+# Name of the main LVM volume group used across the system.
+partition_lvm_group_name: "{{ undef(hint='You must specify the name of the main LVM volume group') }}"
 
 # LVM volume groups with associated devices.
 partition_lvm_groups:

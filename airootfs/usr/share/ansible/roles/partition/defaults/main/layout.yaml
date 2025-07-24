@@ -1,6 +1,6 @@
 ---
 # Block device where partition table will be created.
-partition_layout_device: /dev/vda
+partition_layout_device: "{{ undef(hint='You must specify a target device for partitioning') }}"
 
 # List of partitions to create on the target device.
 # - Start at 1MiB to reserve space for GPT and ensure alignment.
