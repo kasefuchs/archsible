@@ -1,0 +1,9 @@
+---
+- name: Load common variables
+  ansible.builtin.include_vars:
+    dir: "{{ common_variable_local_dir }}"
+
+- name: Check if UEFI is present
+  register: common_uefi_path_info
+  ansible.builtin.stat:
+    path: /sys/firmware/efi

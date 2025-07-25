@@ -1,0 +1,44 @@
+---
+- name: Start mirror list update service
+  ansible.builtin.systemd_service:
+    name: reflector
+    state: started
+
+- name: Check if OS release file exists
+  register: bootstrap_target_os_release_path_info
+  ansible.builtin.stat:
+    path: "{{ bootstrap_target_os_release_path }}"
+
+- name: Bootstrap system with pacstrap
+  when: not bootstrap_target_os_release_path_info.stat.exists
+  ansible.builtin.command:
+    cmd: "/usr/bin/pacstrap -K {{ bootstrap_target_install_root }} {{ bootstrap_target_package_list | reject('equalto', omit) | join(' ') }}"
+
+- name: Generate fstab with genfstab
+  register: bootstrap_genfstab_result
+  ansible.builtin.command:
+    cmd: "/usr/bin/genfstab -U {{ bootstrap_target_install_root }}"
+
+- name: Write fstab
+  ansible.builtin.copy:
+    content: "{{ bootstrap_genfstab_result.stdout }}"
+    dest: "{{ bootstrap_target_fstab_path }}"
+    mode: '0644'
+    owner: root
+    group: root
+
+- name: Copy Ansible project
+  ansible.builtin.copy:
+    src: /usr/share/ansible
+    dest: "{{ bootstrap_target_ansible_dir }}"
+    mode: preserve
+    owner: root
+    group: root
+
+- name: Copy custom cowsay figures
+  ansible.builtin.copy:
+    src: /usr/share/cowsay/site-cows
+    dest: "{{ bootstrap_target_site_cows_dir }}"
+    mode: preserve
+    owner: root
+    group: root

@@ -1,12 +1,12 @@
 ---
-# Partition mount configuration.
-partition_mount_table:
+# Partition mount configuration for UEFI systems.
+partition_mount_table_uefi:
   - device: "{{ (partition_lvm_group_name, 'root') | lvm_mapper_path }}"
     path: "{{ partition_mount_root }}"
     type: ext4
   - device: "{{ (partition_lvm_group_name, 'boot') | lvm_mapper_path }}"
     path: "{{ (partition_mount_root, 'boot') | ansible.builtin.path_join }}"
-    type: vfat
+    type: ext2
   - device: "{{ (partition_layout_device, 1) | join_device_partition }}"
     path: "{{ (partition_mount_root, 'boot/efi') | ansible.builtin.path_join }}"
     type: vfat
@@ -25,3 +25,31 @@ partition_mount_table:
   - device: "{{ (partition_lvm_group_name, 'home') | lvm_mapper_path }}"
     path: "{{ (partition_mount_root, 'home') | ansible.builtin.path_join }}"
     type: btrfs
+
+# Partition mount configuration for BIOS (Legacy) systems.
+partition_mount_table_bios:
+  - device: "{{ (partition_lvm_group_name, 'root') | lvm_mapper_path }}"
+    path: "{{ partition_mount_root }}"
+    type: ext4
+  - device: "{{ (partition_layout_device, 1) | join_device_partition }}"
+    path: "{{ (partition_mount_root, 'boot') | ansible.builtin.path_join }}"
+    type: ext2
+  - device: "{{ (partition_lvm_group_name, 'var') | lvm_mapper_path }}"
+    path: "{{ (partition_mount_root, 'var') | ansible.builtin.path_join }}"
+    type: xfs
+  - device: "{{ (partition_lvm_group_name, 'log') | lvm_mapper_path }}"
+    path: "{{ (partition_mount_root, 'var/log') | ansible.builtin.path_join }}"
+    type: xfs
+  - device: "{{ (partition_lvm_group_name, 'games') | lvm_mapper_path }}"
+    path: "{{ (partition_mount_root, 'var/games') | ansible.builtin.path_join }}"
+    type: ext4
+  - device: "{{ (partition_lvm_group_name, 'home') | lvm_mapper_path }}"
+    path: "{{ (partition_mount_root, 'home') | ansible.builtin.path_join }}"
+    type: btrfs
+
+# Partition mount configuration.
+partition_mount_table: "{{ partition_mount_table_uefi if common_boot_mode_uefi else partition_mount_table_bios }}"
+
+# List of swap device paths to activate with swapon.
+partition_mount_swap_paths:
+  - "{{ (partition_lvm_group_name, 'swap') | lvm_mapper_path }}"

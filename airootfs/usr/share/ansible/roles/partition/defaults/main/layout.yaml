@@ -2,10 +2,10 @@
 # Block device where partition table will be created.
 partition_layout_device: "{{ undef(hint='You must specify a target device for partitioning') }}"
 
-# List of partitions to create on the target device.
-# - Start at 1MiB to reserve space for GPT and ensure alignment.
-# - 260MiB ESP: 4MiB-aligned size above FAT32's ~256MiB minimum (ref: https://superuser.com/a/1717643).
-partition_layout_table:
+# Partition layout for UEFI systems (GPT).
+# - Partition 1: EFI System Partition (ESP), 260MiB, aligned and meets FAT32 requirements. (ref: https://superuser.com/a/1717643).
+# - Partition 2: LVM physical volume using the remaining space.
+partition_layout_table_uefi:
   - device: "{{ partition_layout_device }}"
     number: 1
     start: 1MiB
@@ -21,10 +21,41 @@ partition_layout_table:
     flags:
       - lvm
 
-# List of filesystems to create.
-partition_layout_filesystems:
+# Partition layout for BIOS (Legacy) systems (MBR).
+# - Partition 1: /boot partition (512MiB), with boot flag for GRUB.
+# - Partition 2: LVM physical volume using the remaining space.
+partition_layout_table_bios:
+  - device: "{{ partition_layout_device }}"
+    number: 1
+    start: 1MiB
+    end: 513MiB
+    flags:
+      - boot
+
+  - device: "{{ partition_layout_device }}"
+    number: 2
+    start: 513MiB
+    end: 100%
+    flags:
+      - lvm
+
+# List of partitions to create on the target device.
+partition_layout_table: "{{ partition_layout_table_uefi if common_boot_mode_uefi else partition_layout_table_bios }}"
+
+# Filesystems for UEFI partitions.
+partition_layout_filesystems_uefi:
   - type: vfat
     device: "{{ (partition_layout_device, 1) | join_device_partition }}"
     options: -F32
   - type: lvm
     device: "{{ (partition_layout_device, 2) | join_device_partition }}"
+
+# Filesystems for BIOS partitions.
+partition_layout_filesystems_bios:
+  - type: ext2
+    device: "{{ (partition_layout_device, 1) | join_device_partition }}"
+  - type: lvm
+    device: "{{ (partition_layout_device, 2) | join_device_partition }}"
+
+# List of filesystems to create.
+partition_layout_filesystems: "{{ partition_layout_filesystems_uefi if common_boot_mode_uefi else partition_layout_filesystems_bios }}"

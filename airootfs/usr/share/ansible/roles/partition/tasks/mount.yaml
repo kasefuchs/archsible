@@ -9,3 +9,10 @@
     opts: "{{ item.options | default(omit) }}"
     state: ephemeral
     fstype: "{{ item.type }}"
+
+- name: Activate swap
+  loop: "{{ partition_mount_swap_paths }}"
+  register: partition_mount_swap_result
+  failed_when: "'No such file or directory' in partition_mount_swap_result.stderr"
+  ansible.builtin.command:
+    cmd: "/usr/bin/swapon {{ item }}"

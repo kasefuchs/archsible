@@ -8,8 +8,8 @@ partition_lvm_groups:
     devices:
       - "{{ (partition_layout_device, 2) | join_device_partition }}"
 
-# Logical volumes to create within the LVM groups.
-partition_lvm_volumes:
+# LVM volumes for UEFI systems.
+partition_lvm_volumes_uefi:
   - name: boot
     size: 512M
   - name: root
@@ -22,12 +22,29 @@ partition_lvm_volumes:
     size: 32G
   - name: games
     size: 4G
+  - name: swap
+    size: 1G
 
-# List of filesystems to create.
-partition_lvm_filesystems:
-  - name: boot
-    type: vfat
-    options: -F32
+# LVM volumes for BIOS systems.
+partition_lvm_volumes_bios:
+  - name: root
+    size: 16G
+  - name: var
+    size: 8G
+  - name: log
+    size: 512M
+  - name: home
+    size: 32G
+  - name: games
+    size: 4G
+  - name: swap
+    size: 1G
+
+# Boot-mode-specific LVM volume list.
+partition_lvm_volumes: "{{ partition_lvm_volumes_uefi if common_boot_mode_uefi else partition_lvm_volumes_bios }}"
+
+# Filesystems for BIOS LVM volumes.
+partition_lvm_filesystems_bios:
   - name: root
     type: ext4
   - name: var
@@ -38,3 +55,25 @@ partition_lvm_filesystems:
     type: btrfs
   - name: games
     type: ext4
+  - name: swap
+    type: swap
+
+# Filesystems for UEFI LVM volumes.
+partition_lvm_filesystems_uefi:
+  - name: boot
+    type: ext2
+  - name: root
+    type: ext4
+  - name: var
+    type: xfs
+  - name: log
+    type: xfs
+  - name: home
+    type: btrfs
+  - name: games
+    type: ext4
+  - name: swap
+    type: swap
+
+# Boot-mode-specific LVM filesystem list.
+partition_lvm_filesystems: "{{ partition_lvm_filesystems_uefi if common_boot_mode_uefi else partition_lvm_filesystems_bios }}"

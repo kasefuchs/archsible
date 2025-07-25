@@ -1,0 +1,38 @@
+---
+# Core packages for initial system installation.
+bootstrap_target_package_list:
+  # Basic Arch Linux installation packages.
+  - base
+  - linux
+  - linux-firmware
+
+  # CPU microcode updates.
+  - "{{ common_processor_vendor }}-ucode"
+
+  # Utilities for accessing and managing LVM.
+  - lvm2
+
+  # Userspace utilities for file systems.
+  - btrfs-progs
+  - dosfstools
+  - exfatprogs
+  - e2fsprogs
+  - xfsprogs
+
+  # Software necessary for networking.
+  - networkmanager
+  - wpa_supplicant
+
+  # Configuration management (and some cows).
+  - ansible
+  - cowsay
+
+  # Bootloader and UEFI boot manager. (if UEFI is enabled)
+  - grub
+  - "{{ 'efibootmgr' if common_boot_mode_uefi else omit }}"
+
+  # Just a shell... but otters love fish!
+  - fish
+
+  # Console text editor.
+  - micro

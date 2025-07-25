@@ -1,0 +1,23 @@
+---
+# Path to the common role.
+common_role_local_dir: "{{ (role_path, '../common') | ansible.builtin.path_join | ansible.builtin.realpath }}"
+
+# Path to its vars' directory.
+common_variable_local_dir: "{{ (common_role_local_dir, 'vars') | ansible.builtin.path_join }}"
+
+# Maps raw CPU vendor strings to simplified names.
+common_processor_vendor_map:
+  AuthenticAMD: amd
+  GenuineIntel: intel
+
+# Normalized CPU vendor name based on detected processor.
+common_processor_vendor: "{{ common_processor_vendor_map.get(ansible_processor[1], 'unknown') }}"
+
+# True if the system was booted in UEFI mode.
+common_boot_mode_uefi: "{{ common_uefi_path_info.stat.exists }}"
+
+# True if the system was booted in BIOS (Legacy) mode.
+common_boot_mode_bios: "{{ not common_uefi_path_info.stat.exists }}"
+
+# Boot mode as a string: 'uefi' if UEFI is detected, otherwise 'bios'.
+common_boot_mode: "{{ 'uefi' if common_boot_mode_uefi else 'bios' }}"
