@@ -8,8 +8,11 @@ bootstrap_target_os_release_path: "{{ (bootstrap_target_install_root, 'etc/os-re
 # Path to the fstab file in the installation root.
 bootstrap_target_fstab_path: "{{ (bootstrap_target_install_root, 'etc/fstab') | ansible.builtin.path_join }}"
 
-# Path to the Ansible content in the installation root.
-bootstrap_target_ansible_dir: "{{ (bootstrap_target_install_root, 'usr/share/ansible') | ansible.builtin.path_join }}"
-
-# Path for the custom cowsay figures (site-cows) in the installation root.
-bootstrap_target_site_cows_dir: "{{ (bootstrap_target_install_root, 'usr/share/cowsay/site-cows') | ansible.builtin.path_join }}"
+# Source and target paths to copy during bootstrap installation.
+bootstrap_target_copy_items:
+  - src: /usr/share/ansible/
+    dest: "{{ (bootstrap_target_install_root, 'usr/share/ansible') | ansible.builtin.path_join }}"
+  - src: /usr/share/cowsay/site-cows/
+    dest: "{{ (bootstrap_target_install_root, 'usr/share/cowsay/site-cows') | ansible.builtin.path_join }}"
+  - src: /usr/local/bin/lolcow
+    dest: "{{ (bootstrap_target_install_root, 'usr/local/bin/lolcow') | ansible.builtin.path_join }}"

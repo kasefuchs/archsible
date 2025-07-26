@@ -26,13 +26,17 @@ bootstrap_target_package_list:
   # Configuration management (and some cows).
   - ansible
   - cowsay
-
-  # Bootloader and UEFI boot manager. (if UEFI is enabled)
-  - grub
-  - "{{ 'efibootmgr' if common_boot_mode_uefi else omit }}"
+  - lolcat
 
   # Just a shell... but otters love fish!
   - fish
 
   # Console text editor.
   - micro
+
+  # Privilege escalation.
+  - sudo
+
+  # Bootloader and UEFI boot manager (if UEFI is enabled).
+  - grub
+  - "{{ 'efibootmgr' if common_boot_mode_uefi else omit }}"

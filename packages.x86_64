@@ -1,3 +1,4 @@
+alacritty
 amd-ucode
 ansible
 arch-install-scripts
@@ -8,8 +9,10 @@ dosfstools
 e2fsprogs
 edk2-shell
 fish
+greetd
 inetutils
 intel-ucode
+labwc
 less
 linux
 linux-firmware

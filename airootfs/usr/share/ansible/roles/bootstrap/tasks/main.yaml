@@ -14,7 +14,7 @@
   ansible.builtin.command:
     cmd: "/usr/bin/pacstrap -K {{ bootstrap_target_install_root }} {{ bootstrap_target_package_list | reject('equalto', omit) | join(' ') }}"
 
-- name: Generate fstab with genfstab
+- name: Generate fstab
   register: bootstrap_genfstab_result
   ansible.builtin.command:
     cmd: "/usr/bin/genfstab -U {{ bootstrap_target_install_root }}"
@@ -27,18 +27,13 @@
     owner: root
     group: root
 
-- name: Copy Ansible project
+- name: Copy bootstrap items
+  loop: "{{ bootstrap_target_copy_items }}"
+  loop_control:
+    label: "{{ item.src }} -> {{ item.dest }}"
   ansible.builtin.copy:
-    src: /usr/share/ansible
-    dest: "{{ bootstrap_target_ansible_dir }}"
-    mode: preserve
-    owner: root
-    group: root
-
-- name: Copy custom cowsay figures
-  ansible.builtin.copy:
-    src: /usr/share/cowsay/site-cows
-    dest: "{{ bootstrap_target_site_cows_dir }}"
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
     mode: preserve
     owner: root
     group: root
