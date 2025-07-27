@@ -1,0 +1,51 @@
+---
+- name: Get mounted devices
+  block:
+    - name: Get device mounted on root
+      register: config_boot_root_partition_result
+      changed_when: false
+      ansible.builtin.command:
+        cmd: findmnt -no SOURCE /
+
+    - name: Get device mounted on boot
+      register: config_boot_partition_result
+      changed_when: false
+      ansible.builtin.command:
+        cmd: findmnt -no SOURCE /boot/
+
+- name: Install GRUB
+  block:
+    - name: Install GRUB for UEFI
+      when: common_boot_mode_uefi
+      ansible.builtin.command:
+        cmd: "/usr/bin/grub-install --target=x86_64-efi --efi-directory={{ config_boot_efi_dir }} --bootloader-id={{ config_boot_efi_id }}"
+
+    - name: Install GRUB for BIOS
+      when: not common_boot_mode_uefi
+      ansible.builtin.command:
+        cmd: "/usr/bin/grub-install --target=i386-pc {{ config_boot_device }}"
+
+- name: Ensure GRUB config folder exists
+  ansible.builtin.file:
+    path: "{{ config_boot_include_dir }}"
+    mode: "0755"
+    owner: root
+    group: root
+    state: directory
+
+- name: Copy GRUB configuration
+  loop: "{{ config_boot | ansible.builtin.dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+  vars:
+    common_managed_content: "{{ item.value }}"
+  notify: Generate GRUB configuration
+  ansible.builtin.template:
+    src: "{{ common_template_managed_local_path }}"
+    dest: "{{ (config_boot_include_dir, item.key ~ '.cfg') | ansible.builtin.path_join }}"
+    mode: "0644"
+    owner: root
+    group: root
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

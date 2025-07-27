@@ -25,6 +25,7 @@ bootstrap_target_package_list:
 
   # Configuration management (and some cows).
   - ansible
+  - python-passlib
   - cowsay
   - lolcat
 
@@ -36,6 +37,12 @@ bootstrap_target_package_list:
 
   # Privilege escalation.
   - sudo
+
+  # Time synchronization.
+  - chrony
+
+  # File synchronization.
+  - rsync
 
   # Bootloader and UEFI boot manager (if UEFI is enabled).
   - grub

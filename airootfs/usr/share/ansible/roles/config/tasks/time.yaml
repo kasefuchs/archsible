@@ -1,0 +1,14 @@
+---
+- name: Set timezone
+  community.general.timezone:
+    name: "{{ config_time_zone }}"
+
+- name: Enable chrony
+  ansible.builtin.systemd_service:
+    name: chronyd
+    state: started
+    enabled: true
+
+- name: Set the hardware clock
+  ansible.builtin.command:
+    cmd: /usr/bin/hwclock --systohc

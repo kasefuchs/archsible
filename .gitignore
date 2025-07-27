@@ -8,3 +8,6 @@ output/
 
 # Authorized SSH keys
 airootfs/root/.ssh/authorized_keys
+
+# Pacman config
+airootfs/etc/pacman.d/mirrorlist

@@ -1,0 +1,8 @@
+---
+- name: Create initial ramdisk
+  ansible.builtin.command:
+    cmd: /usr/bin/mkinitcpio -P
+
+- name: Generate GRUB configuration
+  ansible.builtin.command:
+    cmd: /usr/bin/grub-mkconfig -o /boot/grub/grub.cfg

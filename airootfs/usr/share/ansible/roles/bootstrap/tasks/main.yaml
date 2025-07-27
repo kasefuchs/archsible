@@ -1,9 +1,4 @@
 ---
-- name: Start mirror list update service
-  ansible.builtin.systemd_service:
-    name: reflector
-    state: started
-
 - name: Check if OS release file exists
   register: bootstrap_target_os_release_path_info
   ansible.builtin.stat:
@@ -11,8 +6,15 @@
 
 - name: Bootstrap system with pacstrap
   when: not bootstrap_target_os_release_path_info.stat.exists
-  ansible.builtin.command:
-    cmd: "/usr/bin/pacstrap -K {{ bootstrap_target_install_root }} {{ bootstrap_target_package_list | reject('equalto', omit) | join(' ') }}"
+  block:
+    - name: Start mirror list update service
+      ansible.builtin.systemd_service:
+        name: reflector
+        state: started
+
+    - name: Bootstrap system with pacstrap
+      ansible.builtin.command:
+        cmd: "/usr/bin/pacstrap -K {{ bootstrap_target_install_root }} {{ bootstrap_target_package_list | reject('equalto', omit) | join(' ') }}"
 
 - name: Generate fstab
   register: bootstrap_genfstab_result
@@ -23,7 +25,7 @@
   ansible.builtin.copy:
     content: "{{ bootstrap_genfstab_result.stdout }}"
     dest: "{{ bootstrap_target_fstab_path }}"
-    mode: '0644'
+    mode: "0644"
     owner: root
     group: root
 
@@ -31,9 +33,7 @@
   loop: "{{ bootstrap_target_copy_items }}"
   loop_control:
     label: "{{ item.src }} -> {{ item.dest }}"
-  ansible.builtin.copy:
+  ansible.posix.synchronize:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
-    mode: preserve
-    owner: root
-    group: root
+    archive: true

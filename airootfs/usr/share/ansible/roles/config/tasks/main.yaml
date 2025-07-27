@@ -1,0 +1,42 @@
+---
+- name: Configure time
+  tags: time
+  ansible.builtin.include_tasks:
+    file: time.yaml
+    apply:
+      tags: time
+
+- name: Configure locale
+  tags: locale
+  ansible.builtin.include_tasks:
+    file: locale.yaml
+    apply:
+      tags: locale
+
+- name: Configure network
+  tags: network
+  ansible.builtin.include_tasks:
+    file: network.yaml
+    apply:
+      tags: network
+
+- name: Configure initial ramdisk
+  tags: initramfs
+  ansible.builtin.include_tasks:
+    file: initramfs.yaml
+    apply:
+      tags: initramfs
+
+- name: Configure root user
+  tags: root
+  ansible.builtin.include_tasks:
+    file: root.yaml
+    apply:
+      tags: root
+
+- name: Configure boot loader
+  tags: boot
+  ansible.builtin.include_tasks:
+    file: boot.yaml
+    apply:
+      tags: boot

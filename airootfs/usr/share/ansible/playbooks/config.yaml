@@ -1,0 +1,18 @@
+---
+- name: Configure system
+  hosts: all
+  become: true
+  roles:
+    - config
+  vars_prompt:
+    - name: config_time_zone
+      prompt: Enter the system time zone
+      private: false
+    - name: config_network_hostname
+      prompt: Enter the system hostname
+      private: false
+    - name: config_root_password
+      prompt: Enter the root user password
+      unsafe: true
+      private: true
+      encrypt: sha512_crypt

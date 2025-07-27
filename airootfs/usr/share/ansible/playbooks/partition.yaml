@@ -8,7 +8,6 @@
     - name: partition_layout_device
       prompt: Enter the target device for partitioning
       private: false
-
     - name: partition_lvm_group_name
       prompt: Enter the name of the main LVM volume group
       private: false

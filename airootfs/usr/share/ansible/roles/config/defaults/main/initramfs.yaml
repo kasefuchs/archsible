@@ -1,0 +1,20 @@
+---
+# List of mkinitcpio hooks to include in initramfs generation
+config_initramfs_hooks:
+  - base
+  - systemd
+  - autodetect
+  - microcode
+  - modconf
+  - kms
+  - keyboard
+  - keymap
+  - consolefont
+  - block
+  - lvm2
+  - filesystems
+  - fsck
+
+# Content for drop-in mkinitcpio config files.
+config_initramfs:
+  hooks: HOOKS=({{ config_initramfs_hooks | join(' ') }})

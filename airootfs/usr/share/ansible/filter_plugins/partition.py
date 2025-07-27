@@ -21,10 +21,27 @@ def lvm_mapper_path(vg_lv: Tuple[str, str]) -> str:
     return f"/dev/mapper/{escaped_vg}-{escaped_lv}"
 
 
+def parent_device(device_path):
+    patterns = [
+        r"^/dev/(nvme\d+n\d+)p\d+$",
+        r"^/dev/(mmcblk\d+)p\d+$",
+        r"^/dev/(loop\d+)p\d+$",
+        r"^/dev/([a-z]+)\d+$",
+    ]
+
+    for pattern in patterns:
+        match = re.match(pattern, device_path)
+        if match:
+            return f"/dev/{match.group(1)}"
+
+    return device_path
+
+
 # noinspection PyMethodMayBeStatic
 class FilterModule:
     def filters(self) -> Dict[str, Any]:
         return {
             "join_device_partition": join_device_partition,
             "lvm_mapper_path": lvm_mapper_path,
+            "parent_device": parent_device,
         }

@@ -23,6 +23,7 @@ file_permissions=(
   ["/root/.ssh"]="0:0:0700"
   ["/root/.ssh/authorized_keys"]="0:0:0600"
   ["/root/.config/labwc/autostart"]="0:0:755"
+  ["/usr/local/bin/ansible-run"]="0:0:755"
   ["/usr/local/bin/lolcow"]="0:0:755"
 )
 

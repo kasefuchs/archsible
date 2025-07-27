@@ -28,7 +28,9 @@ networkmanager
 openssh
 parted
 pv
+python-passlib
 reflector
+rsync
 sudo
 syslinux
 xfsprogs

@@ -1,0 +1,7 @@
+---
+# The system locale to be set.
+config_locale_name: en_US.UTF-8
+
+# Locales to generate using locale-gen.
+config_locale_items:
+  - en_US.UTF-8

@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+
+for name in "$@"; do
+  ANSIBLE_CONFIG=/usr/share/ansible/ansible.cfg /usr/bin/ansible-playbook --inventory /usr/share/ansible/inventories/local/ --limit local "/usr/share/ansible/playbooks/$name.yaml"
+done

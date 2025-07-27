@@ -31,11 +31,17 @@ tasks:
       ARCHISO_WORKING_DIRECTORY:
         sh: mktemp --directory --tmpdir=/tmp/ mkarchiso.XXXXXXXXXX
 
-  sort:
+  sort-packages:
     cmds:
       - # noinspection YAMLSchemaValidation
         for:
-          - bootstrap_packages.x86_64
           - packages.x86_64
+          - bootstrap_packages.x86_64
         # language="shell script"
         cmd: sort -f "{{ .ITEM }}" -o "{{ .ITEM }}"
+
+  copy-mirrorlist:
+    # language="shell script"
+    cmds:
+      - mkdir -p airootfs/etc/pacman.d/
+      - cp /etc/pacman.d/mirrorlist airootfs/etc/pacman.d/

@@ -1,0 +1,6 @@
+---
+- name: Update root user
+  ansible.builtin.user:
+    name: root
+    shell: "{{ config_root_shell }}"
+    password: "{{ config_root_password }}"

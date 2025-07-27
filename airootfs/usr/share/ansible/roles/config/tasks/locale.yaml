@@ -1,0 +1,14 @@
+---
+- name: Ensure locales exist
+  community.general.locale_gen:
+    name: "{{ config_locale_items }}"
+
+- name: Set system locale
+  vars:
+    common_managed_content: "LANG={{ config_locale_name }}"
+  ansible.builtin.template:
+    src: "{{ common_template_managed_local_path }}"
+    dest: /etc/locale.conf
+    mode: "0644"
+    owner: root
+    group: root

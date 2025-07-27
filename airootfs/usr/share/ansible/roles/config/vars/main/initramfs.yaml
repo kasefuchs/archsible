@@ -1,0 +1,3 @@
+---
+# Directory for mkinitcpio drop-in configuration.
+config_initramfs_include_dir: /etc/mkinitcpio.conf.d/

@@ -1,0 +1,6 @@
+---
+# The root user password to be set.
+config_root_password: "{{ undef(hint='You must specify a root password') }}"
+
+# The root user shell to be set.
+config_root_shell: /usr/bin/fish

@@ -1,0 +1,6 @@
+---
+# Directory for GRUB drop-in configuration.
+config_boot_include_dir: /etc/default/grub.d/
+
+# GRUB partition module based on firmware type.
+config_boot_partition_module: "part_{{ 'gpt' if common_boot_mode_uefi else 'msdos' }}"
