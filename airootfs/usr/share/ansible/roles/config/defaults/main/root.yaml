@@ -1,6 +1,19 @@
 ---
 # The root user password to be set.
-config_root_password: "{{ undef(hint='You must specify a root password') }}"
+config_root_user_password: "{{ undef(hint='You must specify a root user password') }}"
 
 # The root user shell to be set.
-config_root_shell: /usr/bin/fish
+config_root_user_shell: /usr/bin/fish
+
+# Content for drop-in sudo config files.
+config_root_sudo:
+  wheel: "%wheel  ALL=(ALL:ALL)  NOPASSWD: ALL"
+
+# Content for drop-in polkit rules config files.
+config_root_polkit_rules:
+  49-wheel-nopasswd: |
+    polkit.addRule(function(action, subject) {
+      if (subject.isInGroup("wheel")) {
+        return polkit.Result.YES;
+      }
+    });

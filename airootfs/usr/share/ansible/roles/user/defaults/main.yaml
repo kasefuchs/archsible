@@ -1,0 +1,23 @@
+---
+# User account name.
+user_name: "{{ undef(hint='You must specify a user name') }}"
+
+# User account password.
+user_password: "{{ undef(hint='You must specify a user password') }}"
+
+# System groups assigned to the user.
+user_groups:
+  - adm
+  - games
+  - sys
+  - uucp
+  - wheel
+
+# SSH public keys for remote login.
+user_ssh_keys: []
+
+# Storage mode for the home directory.
+user_storage: subvolume
+
+# Login shell for the user.
+user_shell: /usr/bin/fish

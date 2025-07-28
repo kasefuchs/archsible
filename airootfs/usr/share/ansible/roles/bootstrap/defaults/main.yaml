@@ -6,44 +6,13 @@ bootstrap_target_package_list:
   - linux
   - linux-firmware
 
-  # CPU microcode updates.
-  - "{{ common_processor_vendor }}-ucode"
-
-  # Utilities for accessing and managing LVM.
-  - lvm2
-
-  # Userspace utilities for file systems.
-  - btrfs-progs
-  - dosfstools
-  - exfatprogs
-  - e2fsprogs
-  - xfsprogs
-
-  # Software necessary for networking.
-  - networkmanager
-  - wpa_supplicant
-
-  # Configuration management (and some cows).
+  # Configuration management (and some lolcows).
   - ansible
-  - python-passlib
   - cowsay
   - lolcat
 
+  # Python modules.
+  - python-passlib
+
   # Just a shell... but otters love fish!
   - fish
-
-  # Console text editor.
-  - micro
-
-  # Privilege escalation.
-  - sudo
-
-  # Time synchronization.
-  - chrony
-
-  # File synchronization.
-  - rsync
-
-  # Bootloader and UEFI boot manager (if UEFI is enabled).
-  - grub
-  - "{{ 'efibootmgr' if common_boot_mode_uefi else omit }}"

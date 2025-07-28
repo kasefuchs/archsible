@@ -14,7 +14,7 @@
 
     - name: Bootstrap system with pacstrap
       ansible.builtin.command:
-        cmd: "/usr/bin/pacstrap -K {{ bootstrap_target_install_root }} {{ bootstrap_target_package_list | reject('equalto', omit) | join(' ') }}"
+        cmd: "/usr/bin/pacstrap -K {{ bootstrap_target_install_root }} {{ bootstrap_target_package_list | join(' ') }}"
 
 - name: Generate fstab
   register: bootstrap_genfstab_result

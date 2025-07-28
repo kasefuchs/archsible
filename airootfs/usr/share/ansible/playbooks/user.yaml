@@ -1,0 +1,14 @@
+---
+- name: Configure user
+  hosts: all
+  become: true
+  roles:
+    - user
+  vars_prompt:
+    - name: user_name
+      prompt: Enter the user name
+      private: false
+    - name: user_password
+      prompt: Enter the user password
+      unsafe: true
+      private: true

@@ -1,0 +1,6 @@
+---
+# Directory for sudo drop-in configuration.
+config_root_sudo_include_dir: /etc/sudoers.d/
+
+# Directory for polkit rules drop-in configuration.
+config_root_polkit_rules_include_dir: /etc/polkit-1/rules.d/

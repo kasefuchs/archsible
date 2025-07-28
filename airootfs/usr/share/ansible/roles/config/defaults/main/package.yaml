@@ -1,0 +1,50 @@
+---
+# List of system packages to install on the configured system.
+config_package_list:
+  # Utilities for accessing and managing LVM.
+  - lvm2
+
+  # Userspace utilities for file systems.
+  - btrfs-progs
+  - dosfstools
+  - exfatprogs
+  - e2fsprogs
+  - xfsprogs
+
+  # Software necessary for networking.
+  - networkmanager
+  - wpa_supplicant
+
+  # Python modules.
+  - python-pip
+
+  # Console text editor.
+  - micro
+
+  # Privilege escalation.
+  - sudo
+  - polkit
+
+  # Time synchronization.
+  - chrony
+
+  # File synchronization.
+  - rsync
+
+  # Local development.
+  - git
+  - base-devel
+
+  # Remote access.
+  - openssh
+
+  # Bootloader and UEFI boot manager (if UEFI is enabled).
+  - grub
+  - "{{ 'efibootmgr' if common_boot_mode_uefi else omit }}"
+
+  # CPU microcode updates.
+  - "{{ common_processor_vendor }}-ucode"
+
+# List of additional Python packages to install via pip.
+config_package_pip_list:
+  - legacycrypt

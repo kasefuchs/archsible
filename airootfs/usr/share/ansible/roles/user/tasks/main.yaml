@@ -1,0 +1,15 @@
+---
+- name: Enable systemd-homed
+  ansible.builtin.systemd_service:
+    name: systemd-homed
+    state: started
+    enabled: true
+
+- name: Add user
+  community.general.homectl:
+    name: "{{ user_name }}"
+    password: "{{ user_password }}"
+    memberof: "{{ user_groups | join(',') }}"
+    sshkeys: "{{ user_ssh_keys | join(',') }}"
+    storage: "{{ user_storage }}"
+    shell: "{{ user_shell }}"

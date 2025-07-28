@@ -1,0 +1,7 @@
+---
+# Content for drop-in sshd config files.
+config_sshd:
+  50-homed-unlock: |
+    PasswordAuthentication yes
+    PubkeyAuthentication yes
+    AuthenticationMethods publickey,password

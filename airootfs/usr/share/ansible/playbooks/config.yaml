@@ -11,7 +11,7 @@
     - name: config_network_hostname
       prompt: Enter the system hostname
       private: false
-    - name: config_root_password
+    - name: config_root_user_password
       prompt: Enter the root user password
       unsafe: true
       private: true

@@ -1,4 +1,11 @@
 ---
+- name: Configure packages
+  tags: package
+  ansible.builtin.include_tasks:
+    file: package.yaml
+    apply:
+      tags: package
+
 - name: Configure time
   tags: time
   ansible.builtin.include_tasks:
@@ -33,6 +40,13 @@
     file: root.yaml
     apply:
       tags: root
+
+- name: Configure sshd
+  tags: sshd
+  ansible.builtin.include_tasks:
+    file: sshd.yaml
+    apply:
+      tags: sshd
 
 - name: Configure boot loader
   tags: boot

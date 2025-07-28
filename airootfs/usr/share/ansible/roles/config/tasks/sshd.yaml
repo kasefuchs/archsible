@@ -1,0 +1,31 @@
+---
+- name: Enable sshd
+  ansible.builtin.systemd_service:
+    name: sshd
+    state: started
+    enabled: true
+
+- name: Ensure sshd config folder exists
+  ansible.builtin.file:
+    path: "{{ config_initramfs_include_dir }}"
+    mode: "0755"
+    owner: root
+    group: root
+    state: directory
+
+- name: Copy sshd configuration
+  loop: "{{ config_sshd | ansible.builtin.dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+  vars:
+    common_managed_content: "{{ item.value }}"
+  notify: Restart sshd
+  ansible.builtin.template:
+    src: "{{ common_template_managed_local_path }}"
+    dest: "{{ (config_sshd_include_dir, item.key ~ '.conf') | ansible.builtin.path_join }}"
+    mode: "0644"
+    owner: root
+    group: root
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

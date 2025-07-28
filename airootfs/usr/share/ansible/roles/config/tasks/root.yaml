@@ -2,5 +2,51 @@
 - name: Update root user
   ansible.builtin.user:
     name: root
-    shell: "{{ config_root_shell }}"
-    password: "{{ config_root_password }}"
+    shell: "{{ config_root_user_shell }}"
+    password: "{{ config_root_user_password }}"
+
+- name: Copy drop-in sudo config
+  block:
+    - name: Ensure polkit rules config exists
+      ansible.builtin.file:
+        path: "{{ config_root_sudo_include_dir }}"
+        mode: "0750"
+        owner: root
+        group: root
+        state: directory
+
+    - name: Copy drop-in sudo config
+      loop: "{{ config_root_sudo | ansible.builtin.dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
+      vars:
+        common_managed_content: "{{ item.value }}"
+      ansible.builtin.template:
+        src: "{{ common_template_managed_local_path }}"
+        dest: "{{ (config_root_sudo_include_dir, item.key) | ansible.builtin.path_join }}"
+        mode: "0644"
+        owner: root
+        group: root
+
+- name: Copy drop-in polkit rules config
+  block:
+    - name: Ensure polkit rules config exists
+      ansible.builtin.file:
+        path: "{{ config_root_polkit_rules_include_dir }}"
+        mode: "0750"
+        owner: root
+        group: polkitd
+        state: directory
+
+    - name: Copy drop-in polkit rules config
+      loop: "{{ config_root_polkit_rules | ansible.builtin.dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
+      vars:
+        common_managed_content: "{{ item.value }}"
+      ansible.builtin.template:
+        src: "{{ common_template_managed_local_path }}"
+        dest: "{{ (config_root_polkit_rules_include_dir, item.key ~ '.rules') | ansible.builtin.path_join }}"
+        mode: "0644"
+        owner: root
+        group: polkitd
