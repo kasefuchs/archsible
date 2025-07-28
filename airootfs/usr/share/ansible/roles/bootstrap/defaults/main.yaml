@@ -14,5 +14,8 @@ bootstrap_target_package_list:
   # Python modules.
   - python-passlib
 
+  # Hardware detection.
+  - lshw
+
   # Just a shell... but otters love fish!
   - fish

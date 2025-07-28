@@ -43,7 +43,11 @@ config_package_list:
   - "{{ 'efibootmgr' if common_boot_mode_uefi else omit }}"
 
   # CPU microcode updates.
-  - "{{ common_processor_vendor }}-ucode"
+  - "{{ common_cpu_vendor }}-ucode"
+
+  # GPU drivers.
+  - "{{ config_package_dri_map.get(common_gpu_vendor, omit) }}"
+  - "{{ config_package_vulkan_map.get(common_gpu_vendor, omit) }}"
 
 # List of additional Python packages to install via pip.
 config_package_pip_list:

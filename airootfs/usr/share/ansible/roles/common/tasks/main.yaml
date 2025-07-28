@@ -6,6 +6,13 @@
 
 - name: Check if UEFI is present
   tags: always
-  register: common_uefi_path_info
+  register: common_uefi_path_info_result
   ansible.builtin.stat:
     path: /sys/firmware/efi
+
+- name: Get display device info
+  tags: always
+  register: common_display_info_result
+  failed_when: false
+  ansible.builtin.command:
+    cmd: /usr/bin/lshw -json -class display

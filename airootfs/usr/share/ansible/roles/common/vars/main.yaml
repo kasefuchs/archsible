@@ -12,21 +12,27 @@ common_template_local_dir: "{{ (common_role_local_dir, 'templates') | ansible.bu
 common_template_managed_local_path: "{{ (common_template_local_dir, 'managed.j2') | ansible.builtin.path_join }}"
 
 # Maps raw CPU vendor strings to simplified names.
-common_processor_vendor_map:
+common_cpu_vendor_map:
   AuthenticAMD: amd
   GenuineIntel: intel
 
 # Normalized CPU vendor name based on detected processor.
-common_processor_vendor: "{{ common_processor_vendor_map.get(ansible_processor[1], 'unknown') }}"
+common_cpu_vendor: "{{ common_cpu_vendor_map.get(ansible_processor[1], 'unknown') }}"
+
+# Maps raw GPU vendor strings to simplified names.
+common_gpu_vendor_map:
+  "Intel Corporation": intel
+  "NVIDIA Corporation": nvidia
+  "Advanced Micro Devices, Inc. [AMD/ATI]": amd
+
+# Parsed lshw display info.
+common_display_info_json: "{{ (common_display_info_result.stdout) | ansible.builtin.from_json }}"
+
+# Normalized GPU vendor name based on lshw display info.
+common_gpu_vendor: "{{ common_gpu_vendor_map.get(common_display_info_json[0].vendor, 'unknown') }}"
 
 # True if the system was booted in UEFI mode.
-common_boot_mode_uefi: "{{ common_uefi_path_info.stat.exists }}"
-
-# True if the system was booted in BIOS (Legacy) mode.
-common_boot_mode_bios: "{{ not common_uefi_path_info.stat.exists }}"
-
-# Boot mode as a string: 'uefi' if UEFI is detected, otherwise 'bios'.
-common_boot_mode: "{{ 'uefi' if common_boot_mode_uefi else 'bios' }}"
+common_boot_mode_uefi: "{{ common_uefi_path_info_result.stat.exists }}"
 
 # Header of managed templates.
 common_managed_header: >-

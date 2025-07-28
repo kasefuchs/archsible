@@ -17,14 +17,18 @@ less
 linux
 linux-firmware
 lolcat
+lshw
 lvm2
 man-db
 memtest86+
 memtest86+-efi
+mesa
 micro
 mkinitcpio
 mkinitcpio-archiso
 networkmanager
+nvidia-open
+nvidia-utils
 openssh
 parted
 pv
@@ -33,4 +37,6 @@ reflector
 rsync
 sudo
 syslinux
+vulkan-intel
+vulkan-radeon
 xfsprogs
