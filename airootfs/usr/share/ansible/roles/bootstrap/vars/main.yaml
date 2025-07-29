@@ -14,5 +14,7 @@ bootstrap_target_copy_items:
     dest: "{{ (bootstrap_target_install_root, 'usr/share/ansible') | ansible.builtin.path_join }}"
   - src: /usr/share/cowsay/site-cows/
     dest: "{{ (bootstrap_target_install_root, 'usr/share/cowsay/site-cows') | ansible.builtin.path_join }}"
+  - src: /usr/share/fish/completions/
+    dest: "{{ (bootstrap_target_install_root, 'usr/share/fish/completions') | ansible.builtin.path_join }}"
   - src: /usr/local/bin/
     dest: "{{ (bootstrap_target_install_root, 'usr/local/bin') | ansible.builtin.path_join }}"

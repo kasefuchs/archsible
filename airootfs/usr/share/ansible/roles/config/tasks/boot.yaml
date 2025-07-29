@@ -33,13 +33,13 @@
     group: root
     state: directory
 
-- name: Copy GRUB configuration
+- name: Copy GRUB template config
   loop: "{{ config_boot | ansible.builtin.dict2items }}"
   loop_control:
     label: "{{ item.key }}"
   vars:
     common_managed_content: "{{ item.value }}"
-  notify: Generate GRUB configuration
+  notify: Generate GRUB config
   ansible.builtin.template:
     src: "{{ common_template_managed_local_path }}"
     dest: "{{ (config_boot_include_dir, item.key ~ '.cfg') | ansible.builtin.path_join }}"
@@ -49,3 +49,12 @@
 
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
+
+- name: Patch GRUB config
+  loop: "{{ config_boot_patches }}"
+  loop_control:
+    label: "'{{ item.regexp }}' -> '{{ item.replace }}'"
+  ansible.builtin.replace:
+    path: "{{ config_boot_path }}"
+    regexp: "{{ item.regexp }}"
+    replace: "{{ item.replace }}"

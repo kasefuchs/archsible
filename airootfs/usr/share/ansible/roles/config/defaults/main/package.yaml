@@ -35,6 +35,9 @@ config_package_list:
   - git
   - base-devel
 
+  # Graphical boot.
+  - plymouth
+
   # Remote access.
   - openssh
 

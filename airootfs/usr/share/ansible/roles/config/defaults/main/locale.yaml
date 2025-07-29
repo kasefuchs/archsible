@@ -5,3 +5,6 @@ config_locale_name: en_US.UTF-8
 # Locales to generate using locale-gen.
 config_locale_items:
   - en_US.UTF-8
+
+# Contents of the /etc/vconsole.conf.
+config_locale_console: KEYMAP="us"

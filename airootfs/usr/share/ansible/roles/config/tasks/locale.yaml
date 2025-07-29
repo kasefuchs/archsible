@@ -12,3 +12,13 @@
     mode: "0644"
     owner: root
     group: root
+
+- name: Set console config
+  vars:
+    common_managed_content: "{{ config_locale_console }}"
+  ansible.builtin.template:
+    src: "{{ common_template_managed_local_path }}"
+    dest: /etc/vconsole.conf
+    mode: "0644"
+    owner: root
+    group: root

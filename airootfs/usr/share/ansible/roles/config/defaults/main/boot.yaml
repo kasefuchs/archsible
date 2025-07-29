@@ -16,5 +16,16 @@ config_boot_efi_id: GRUB
 
 # Content for drop-in bootloader config files.
 config_boot:
-  root: GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 root={{ config_boot_root_partition }}"
-  modules: GRUB_PRELOAD_MODULES="{{ config_boot_partition_module }} lvm"
+  root: |
+    GRUB_CMDLINE_LINUX_DEFAULT="quiet splash loglevel=3 systemd.show_status=auto rd.udev.log_level=3 vt.global_cursor_default=0 root={{ config_boot_root_partition }}"
+  timeout: |
+    GRUB_TIMEOUT="0"
+    GRUB_TIMEOUT_STYLE="hidden"
+  modules: |
+    GRUB_PRELOAD_MODULES="{{ config_boot_partition_module }} lvm"
+
+# List of replacement rules to apply to the GRUB config.
+config_boot_patches:
+  # Remove 'Loading...' messages.
+  - regexp: '^(?!#)(.*\becho\b.*)$'
+    replace: '# \1'

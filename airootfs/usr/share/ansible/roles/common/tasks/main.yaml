@@ -14,5 +14,6 @@
   tags: always
   register: common_display_info_result
   failed_when: false
+  changed_when: false
   ansible.builtin.command:
     cmd: /usr/bin/lshw -json -class display
