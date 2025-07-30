@@ -1,0 +1,14 @@
+---
+- name: Configure packages
+  tags: package
+  ansible.builtin.include_tasks:
+    file: package.yaml
+    apply:
+      tags: package
+
+- name: Configure display manager
+  tags: display
+  ansible.builtin.include_tasks:
+    file: display.yaml
+    apply:
+      tags: display

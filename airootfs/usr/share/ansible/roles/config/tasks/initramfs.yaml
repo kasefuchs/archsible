@@ -1,5 +1,5 @@
 ---
-- name: Ensure mkinitcpio config folder exists
+- name: Ensure mkinitcpio config dir exists
   ansible.builtin.file:
     path: "{{ config_initramfs_include_dir }}"
     mode: "0755"
@@ -7,7 +7,7 @@
     group: root
     state: directory
 
-- name: Copy mkinitcpio configuration
+- name: Copy mkinitcpio config
   loop: "{{ config_initramfs | ansible.builtin.dict2items }}"
   loop_control:
     label: "{{ item.key }}"

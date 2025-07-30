@@ -44,6 +44,9 @@
         label: "{{ item.key }}"
       vars:
         common_managed_content: "{{ item.value }}"
+        common_managed_comment_beginning: "/*"
+        common_managed_comment_decoration: " * "
+        common_managed_comment_end: "*/"
       ansible.builtin.template:
         src: "{{ common_template_managed_local_path }}"
         dest: "{{ (config_root_polkit_rules_include_dir, item.key ~ '.rules') | ansible.builtin.path_join }}"

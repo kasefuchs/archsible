@@ -10,3 +10,9 @@ config_package_vulkan_map:
   amd: vulkan-radeon
   intel: vulkan-intel
   nvidia: nvidia-utils
+
+# Mapping of GPU vendors to hardware video acceleration driver packages.
+config_package_va_map:
+  amd: mesa
+  intel: intel-media-driver
+  nvidia: nvidia-utils

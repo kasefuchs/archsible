@@ -1,0 +1,3 @@
+---
+# Directory for SDDM drop-in configuration.
+desktop_display_include_dir: /etc/sddm.conf.d/

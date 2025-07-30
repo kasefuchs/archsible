@@ -1,0 +1,36 @@
+---
+# List of desktop packages to install.
+desktop_package_list:
+  # Fonts.
+  - ttf-roboto
+
+  # Multimedia and audio.
+  - qt6-multimedia-gstreamer
+  - pipewire-jack
+
+  # KDE Plasma.
+  - plasma-desktop
+  - plasma-nm
+  - plasma-pa
+
+  # KDE applications.
+  - dolphin
+  - partitionmanager
+  - ark
+  - filelight
+  - kate
+  - kcalc
+  - konsole
+  - kdeconnect
+  - krdc
+  - krfb
+
+  # KDE config.
+  - kde-gtk-config
+  - plymouth-kcm
+  - sddm-kcm
+
+  # Display manager.
+  - sddm
+  - layer-shell-qt
+  - layer-shell-qt5

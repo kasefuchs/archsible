@@ -1,0 +1,6 @@
+---
+- name: Configure desktop
+  hosts: all
+  become: true
+  roles:
+    - desktop

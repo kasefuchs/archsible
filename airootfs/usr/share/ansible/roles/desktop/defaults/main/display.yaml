@@ -1,0 +1,10 @@
+---
+# Content for drop-in SDDM config files.
+desktop_display_config:
+  wayland: |
+    [General]
+    DisplayServer=wayland
+    GreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell
+
+    [Wayland]
+    CompositorCommand=/usr/bin/kwin_wayland --drm --no-lockscreen --no-global-shortcuts --locale1

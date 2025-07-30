@@ -5,11 +5,43 @@
     state: started
     enabled: true
 
-- name: Add user
-  community.general.homectl:
-    name: "{{ user_name }}"
-    password: "{{ user_password }}"
-    memberof: "{{ user_groups | join(',') }}"
-    sshkeys: "{{ user_ssh_keys | join(',') }}"
-    storage: "{{ user_storage }}"
-    shell: "{{ user_shell }}"
+- name: Inspect user
+  register: user_inspect_result
+  failed_when: false
+  changed_when: false
+  ansible.builtin.command:
+    cmd: "/usr/bin/homectl inspect {{ user_name }}"
+
+- name: Add or update user
+  block:
+    - name: Add user
+      when: user_inspect_result.rc == 1
+      environment:
+        NEWPASSWORD: "{{ user_password }}"
+      ansible.builtin.command:
+        argv:
+          - /usr/bin/homectl
+          - create
+          - "{{ user_name }}"
+          - --ssh-authorized-keys={{ user_ssh_keys | join(',') }}
+          - --member-of={{ user_groups | join(',') }}
+          - --disk-size={{ user_disk_size }}
+          - --fs-type={{ user_filesystem }}
+          - --storage={{ user_storage }}
+          - --shell={{ user_shell }}
+
+    - name: Update user
+      when: user_inspect_result.rc == 0
+      environment:
+        PASSWORD: "{{ user_password }}"
+      ansible.builtin.command:
+        argv:
+          - /usr/bin/homectl
+          - update
+          - "{{ user_name }}"
+          - --ssh-authorized-keys={{ user_ssh_keys | join(',') }}
+          - --member-of={{ user_groups | join(',') }}
+          - --disk-size={{ user_disk_size }}
+          - --fs-type={{ user_filesystem }}
+          - --storage={{ user_storage }}
+          - --shell={{ user_shell }}

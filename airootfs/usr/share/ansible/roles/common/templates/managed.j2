@@ -1,2 +1,2 @@
-{{ common_managed_header | ansible.builtin.comment('plain', decoration = common_managed_comment_decoration | default('# ')) }}
+{{ common_managed_header | ansible.builtin.comment('plain', beginning = common_managed_comment_beginning | default(''), decoration = common_managed_comment_decoration | default('# '), end = common_managed_comment_end | default('')) }}
 {{ common_managed_content }}

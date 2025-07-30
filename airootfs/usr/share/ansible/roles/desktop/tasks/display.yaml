@@ -1,29 +1,29 @@
 ---
-- name: Ensure sshd config dir exists
+- name: Ensure SDDM config dir exists
   ansible.builtin.file:
-    path: "{{ config_initramfs_include_dir }}"
+    path: "{{ desktop_display_include_dir }}"
     mode: "0755"
     owner: root
     group: root
     state: directory
 
-- name: Copy sshd config
-  loop: "{{ config_sshd | ansible.builtin.dict2items }}"
+- name: Copy SDDM config
+  loop: "{{ desktop_display_config | ansible.builtin.dict2items }}"
   loop_control:
     label: "{{ item.key }}"
   vars:
     common_managed_content: "{{ item.value }}"
-  notify: Restart sshd
+  notify: Restart SDDM
   ansible.builtin.template:
     src: "{{ common_template_managed_local_path }}"
-    dest: "{{ (config_sshd_include_dir, item.key ~ '.conf') | ansible.builtin.path_join }}"
+    dest: "{{ (desktop_display_include_dir, item.key ~ '.conf') | ansible.builtin.path_join }}"
     mode: "0644"
     owner: root
     group: root
 
-- name: Enable sshd
+- name: Enable SDDM
   ansible.builtin.systemd_service:
-    name: sshd
+    name: sddm
     enabled: true
 
 - name: Flush handlers

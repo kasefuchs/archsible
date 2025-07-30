@@ -1,0 +1,4 @@
+---
+- name: Install packages
+  ansible.builtin.package:
+    name: "{{ desktop_package_list | ansible.builtin.unique | reject('equalto', omit) }}"

@@ -51,6 +51,7 @@ config_package_list:
   # GPU drivers.
   - "{{ config_package_dri_map.get(common_gpu_vendor, omit) }}"
   - "{{ config_package_vulkan_map.get(common_gpu_vendor, omit) }}"
+  - "{{ config_package_va_map.get(common_gpu_vendor, omit) }}"
 
 # List of additional Python packages to install via pip.
 config_package_pip_list:

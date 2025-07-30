@@ -25,7 +25,7 @@
       ansible.builtin.command:
         cmd: "/usr/bin/grub-install --target=i386-pc {{ config_boot_device }}"
 
-- name: Ensure GRUB config folder exists
+- name: Ensure GRUB config dir exists
   ansible.builtin.file:
     path: "{{ config_boot_include_dir }}"
     mode: "0755"
