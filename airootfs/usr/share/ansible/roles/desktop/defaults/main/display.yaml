@@ -8,3 +8,7 @@ desktop_display_config:
 
     [Wayland]
     CompositorCommand=/usr/bin/kwin_wayland --drm --no-lockscreen --no-global-shortcuts --locale1
+
+  theme: |
+    [Theme]
+    Current=breeze

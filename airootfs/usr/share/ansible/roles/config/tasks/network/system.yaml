@@ -1,7 +1,7 @@
 ---
-- name: Set hostname
+- name: Set system hostname
   vars:
-    common_managed_content: "{{ config_network_hostname }}"
+    common_managed_content: "{{ config_network_system_hostname }}"
   ansible.builtin.template:
     src: "{{ common_template_managed_local_path }}"
     dest: /etc/hostname
@@ -9,7 +9,7 @@
     owner: root
     group: root
 
-- name: Write hosts
+- name: Write system hosts
   ansible.builtin.template:
     src: hosts.j2
     dest: /etc/hosts
@@ -17,8 +17,8 @@
     owner: root
     group: root
 
-- name: Enable network manager
+- name: Enable Bluetooth
   ansible.builtin.systemd_service:
-    name: NetworkManager
+    name: bluetooth
     state: started
     enabled: true

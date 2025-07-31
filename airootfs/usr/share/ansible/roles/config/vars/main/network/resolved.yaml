@@ -1,0 +1,3 @@
+---
+# Directory for systemd-resolved drop-in configuration.
+config_network_resolved_include_dir: /etc/systemd/resolved.conf.d/

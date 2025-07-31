@@ -14,6 +14,9 @@ config_package_list:
   # Software necessary for networking.
   - networkmanager
   - wpa_supplicant
+  - bluez-utils
+  - bluez
+  - dog
 
   # Python modules.
   - python-pip

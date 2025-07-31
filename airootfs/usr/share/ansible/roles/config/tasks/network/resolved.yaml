@@ -1,0 +1,40 @@
+---
+- name: Ensure systemd-resolved config dir exists
+  ansible.builtin.file:
+    path: "{{ config_network_resolved_include_dir }}"
+    mode: "0755"
+    owner: root
+    group: root
+    state: directory
+
+- name: Copy systemd-resolved config
+  loop: "{{ config_network_resolved | ansible.builtin.dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+  vars:
+    common_managed_content: "{{ item.value }}"
+  notify: Restart systemd-resolved
+  ansible.builtin.template:
+    src: "{{ common_template_managed_local_path }}"
+    dest: "{{ (config_network_resolved_include_dir, item.key ~ '.conf') | ansible.builtin.path_join }}"
+    mode: "0644"
+    owner: root
+    group: root
+
+- name: Enable systemd-resolved
+  ansible.builtin.systemd_service:
+    name: systemd-resolved
+    state: started
+    enabled: true
+
+- name: Link resolv.conf
+  ansible.builtin.file:
+    src: /run/systemd/resolve/stub-resolv.conf
+    dest: /etc/resolv.conf
+    state: link
+    force: true
+    owner: root
+    group: root
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

@@ -2,7 +2,9 @@
 # List of desktop packages to install.
 desktop_package_list:
   # Fonts.
-  - ttf-roboto
+  - noto-fonts
+  - noto-fonts-cjk
+  - noto-fonts-emoji
 
   # Multimedia and audio.
   - qt6-multimedia-gstreamer
@@ -21,14 +23,22 @@ desktop_package_list:
   - kate
   - kcalc
   - konsole
+  - gwenview
+  - elisa
   - kdeconnect
+  - spectacle
   - krdc
   - krfb
 
-  # KDE config.
-  - kde-gtk-config
+  # KDE system settings.
   - plymouth-kcm
   - sddm-kcm
+  - kscreen
+  - bluedevil
+
+  # GTK config.
+  - gtk3
+  - kde-gtk-config
 
   # Display manager.
   - sddm

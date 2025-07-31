@@ -1,0 +1,10 @@
+---
+# Content for drop-in Network Manager config files.
+config_network_manager:
+  no-dns: |
+    [main]
+    dns=none
+
+  no-systemd-resolved: |
+    [main]
+    systemd-resolved=false

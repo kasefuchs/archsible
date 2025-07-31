@@ -1,3 +1,0 @@
----
-# The system hostname to be set.
-config_network_hostname: "{{ undef(hint='You must specify a hostname') }}"

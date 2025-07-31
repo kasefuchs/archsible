@@ -11,3 +11,13 @@
   ansible.builtin.systemd_service:
     name: sshd
     state: restarted
+
+- name: Restart systemd-resolved
+  ansible.builtin.systemd_service:
+    name: systemd-resolved
+    state: restarted
+
+- name: Restart Network Manager
+  ansible.builtin.systemd_service:
+    name: NetworkManager
+    state: restarted

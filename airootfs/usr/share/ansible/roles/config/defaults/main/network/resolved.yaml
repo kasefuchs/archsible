@@ -1,0 +1,6 @@
+---
+# Content for drop-in systemd-resolved config files.
+config_network_resolved:
+  additional-listening-interfaces: |
+    [Resolve]
+    DNSStubListenerExtra=127.0.0.1:53

@@ -22,10 +22,33 @@
 
 - name: Configure network
   tags: network
-  ansible.builtin.include_tasks:
-    file: network.yaml
-    apply:
-      tags: network
+  block:
+    - name: Configure system network
+      tags: system
+      ansible.builtin.include_tasks:
+        file: network/system.yaml
+        apply:
+          tags:
+            - system
+            - network
+
+    - name: Configure systemd-resolved
+      tags: resolved
+      ansible.builtin.include_tasks:
+        file: network/resolved.yaml
+        apply:
+          tags:
+            - resolved
+            - network
+
+    - name: Configure Network Manager
+      tags: manager
+      ansible.builtin.include_tasks:
+        file: network/manager.yaml
+        apply:
+          tags:
+            - manager
+            - network
 
 - name: Configure initial ramdisk
   tags: initramfs

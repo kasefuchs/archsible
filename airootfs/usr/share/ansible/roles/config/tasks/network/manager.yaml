@@ -1,0 +1,31 @@
+---
+- name: Ensure Network Manager config dir exists
+  ansible.builtin.file:
+    path: "{{ config_network_manager_include_dir }}"
+    mode: "0755"
+    owner: root
+    group: root
+    state: directory
+
+- name: Copy Network Manager config
+  loop: "{{ config_network_manager | ansible.builtin.dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+  vars:
+    common_managed_content: "{{ item.value }}"
+  notify: Restart Network Manager
+  ansible.builtin.template:
+    src: "{{ common_template_managed_local_path }}"
+    dest: "{{ (config_network_manager_include_dir, item.key ~ '.conf') | ansible.builtin.path_join }}"
+    mode: "0644"
+    owner: root
+    group: root
+
+- name: Enable Network Manager
+  ansible.builtin.systemd_service:
+    name: NetworkManager
+    state: started
+    enabled: true
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

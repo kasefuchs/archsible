@@ -8,7 +8,7 @@
     - name: config_time_zone
       prompt: Enter the system time zone
       private: false
-    - name: config_network_hostname
+    - name: config_network_system_hostname
       prompt: Enter the system hostname
       private: false
     - name: config_root_user_password
