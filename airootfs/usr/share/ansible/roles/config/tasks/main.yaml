@@ -1,5 +1,12 @@
 ---
 - name: Configure packages
+  tags: prepare
+  ansible.builtin.include_tasks:
+    file: prepare.yaml
+    apply:
+      tags: prepare
+
+- name: Configure packages
   tags: package
   ansible.builtin.include_tasks:
     file: package.yaml

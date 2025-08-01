@@ -1,0 +1,14 @@
+---
+# Set ownership and permissions for system files and directories.
+config_prepare_permissions:
+  - path: /var/games/
+    mode: "0775"
+    owner: root
+    group: games
+    state: directory
+
+  - path: /var/log/
+    mode: "0755"
+    owner: root
+    group: adm
+    state: directory

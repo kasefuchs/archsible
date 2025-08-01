@@ -1,0 +1,28 @@
+---
+- name: Write temporary resolv.conf
+  block:
+    - name: Read resolv.conf
+      register: config_prepare_slurp_resolv_result
+      failed_when: false
+      ansible.builtin.slurp:
+        src: /etc/resolv.conf
+
+    - name: Write resolv.conf
+      when: (config_prepare_slurp_resolv_result is not defined) or not (config_prepare_slurp_resolv_result.content | ansible.builtin.b64decode | ansible.builtin.split('\n') | select('match', '^nameserver') | length)
+      ansible.builtin.template:
+        src: resolv.conf.j2
+        dest: /etc/hosts
+        mode: "0644"
+        owner: root
+        group: root
+
+- name: Set proper permissions on files
+  loop: "{{ config_prepare_permissions }}"
+  loop_control:
+    label: "{{ item.path }}"
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    mode: "{{ item.mode | default(omit) }}"
+    owner: "{{ item.owner | default(omit) }}"
+    group: "{{ item.group | default(omit) }}"
+    state: "{{ item.state | default('file') }}"

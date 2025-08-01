@@ -11,3 +11,7 @@ airootfs/root/.ssh/authorized_keys
 
 # Pacman config
 airootfs/etc/pacman.d/mirrorlist
+
+# --- Python ---
+# Compiled bytecode files
+*.pyc
