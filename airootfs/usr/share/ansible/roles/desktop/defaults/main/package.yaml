@@ -40,6 +40,12 @@ desktop_package_list:
   - gtk3
   - kde-gtk-config
 
+  # Config synchronization.
+  - chezmoi
+
+  # Local development.
+  - pre-commit
+
   # Display manager.
   - sddm
   - layer-shell-qt

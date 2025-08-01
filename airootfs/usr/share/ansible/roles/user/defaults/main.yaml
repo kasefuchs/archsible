@@ -23,7 +23,7 @@ user_storage: luks
 user_filesystem: btrfs
 
 # Size of the disk allocated for the user's home directory.
-user_disk_size: "{{ '28G' if user_storage == 'luks' else 'max' }}"
+user_disk_size: "{{ '24G' if user_storage == 'luks' else 'max' }}"
 
 # Login shell for the user.
 user_shell: /usr/bin/fish
