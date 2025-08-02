@@ -23,12 +23,14 @@
           - /usr/bin/homectl
           - create
           - "{{ user_name }}"
-          - --ssh-authorized-keys={{ user_ssh_keys | join(',') }}
-          - --member-of={{ user_groups | join(',') }}
-          - --disk-size={{ user_disk_size }}
-          - --fs-type={{ user_filesystem }}
-          - --storage={{ user_storage }}
-          - --shell={{ user_shell }}
+          - "--ssh-authorized-keys={{ user_ssh_keys | join(',') }}"
+          - "--luks-offline-discard={{ user_storage_luks_offline_discard }}"
+          - "--luks-discard={{ user_storage_luks_discard }}"
+          - "--member-of={{ user_groups | join(',') }}"
+          - "--disk-size={{ user_disk_size }}"
+          - "--fs-type={{ user_filesystem }}"
+          - "--storage={{ user_storage }}"
+          - "--shell={{ user_shell }}"
 
     - name: Update user
       when: user_inspect_result.rc == 0
@@ -39,9 +41,11 @@
           - /usr/bin/homectl
           - update
           - "{{ user_name }}"
-          - --ssh-authorized-keys={{ user_ssh_keys | join(',') }}
-          - --member-of={{ user_groups | join(',') }}
-          - --disk-size={{ user_disk_size }}
-          - --fs-type={{ user_filesystem }}
-          - --storage={{ user_storage }}
-          - --shell={{ user_shell }}
+          - "--ssh-authorized-keys={{ user_ssh_keys | join(',') }}"
+          - "--luks-offline-discard={{ user_storage_luks_offline_discard }}"
+          - "--luks-discard={{ user_storage_luks_discard }}"
+          - "--member-of={{ user_groups | join(',') }}"
+          - "--disk-size={{ user_disk_size }}"
+          - "--fs-type={{ user_filesystem }}"
+          - "--storage={{ user_storage }}"
+          - "--shell={{ user_shell }}"

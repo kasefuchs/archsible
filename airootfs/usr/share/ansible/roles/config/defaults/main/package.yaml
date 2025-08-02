@@ -16,7 +16,6 @@ config_package_list:
   - wpa_supplicant
   - bluez-utils
   - bluez
-  - dog
 
   # Python modules.
   - python-pip
@@ -28,14 +27,22 @@ config_package_list:
   - sudo
   - polkit
 
+  # Useful utilities.
+  - less
+  - dog
+  - jq
+
   # Time synchronization.
   - chrony
 
   # File synchronization.
   - rsync
+  - chezmoi
 
   # Local development.
   - git
+  - git-lfs
+  - pre-commit
   - base-devel
 
   # Graphical boot.

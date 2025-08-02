@@ -14,10 +14,21 @@ config_boot_efi_dir: /efi
 # Identifier used for the EFI boot entry.
 config_boot_efi_id: GRUB
 
+# Parameters to pass to kernel on boot.
+config_boot_kernel_parameters:
+  - quiet
+  - splash
+  - "{{ 'plymouth.use-simpledrm' if common_gpu_vendor == 'amd' else omit }}"
+  - loglevel=3
+  - systemd.show_status=auto
+  - rd.udev.log_level=3
+  - vt.global_cursor_default=0
+  - root={{ config_boot_root_partition }}
+
 # Content for drop-in bootloader config files.
 config_boot:
   root: |
-    GRUB_CMDLINE_LINUX_DEFAULT="quiet splash loglevel=3 systemd.show_status=auto rd.udev.log_level=3 vt.global_cursor_default=0 root={{ config_boot_root_partition }}"
+    GRUB_CMDLINE_LINUX_DEFAULT="{{ config_boot_kernel_parameters | reject('equalto', omit) | join(' ') }}"
   timeout: |
     GRUB_TIMEOUT="0"
     GRUB_TIMEOUT_STYLE="hidden"

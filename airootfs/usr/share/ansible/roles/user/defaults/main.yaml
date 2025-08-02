@@ -19,6 +19,12 @@ user_ssh_keys: []
 # Storage mode for the home directory.
 user_storage: luks
 
+# When LUKS2 storage is used configures whether to enable the "discard" feature of the file system.
+user_storage_luks_discard: true
+
+# Controls what happens when the home directory becomes inactive.
+user_storage_luks_offline_discard: true
+
 # Filesystem type used for the user's home directory.
 user_filesystem: btrfs
 

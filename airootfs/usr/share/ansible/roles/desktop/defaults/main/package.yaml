@@ -26,6 +26,7 @@ desktop_package_list:
   - gwenview
   - elisa
   - kdeconnect
+  - kinfocenter
   - spectacle
   - krdc
   - krfb
@@ -39,12 +40,6 @@ desktop_package_list:
   # GTK config.
   - gtk3
   - kde-gtk-config
-
-  # Config synchronization.
-  - chezmoi
-
-  # Local development.
-  - pre-commit
 
   # Display manager.
   - sddm
