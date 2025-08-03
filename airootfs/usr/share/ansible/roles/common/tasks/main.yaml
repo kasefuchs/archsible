@@ -10,6 +10,10 @@
   ansible.builtin.stat:
     path: /sys/firmware/efi
 
+- name: Get installed packages info
+  tags: always
+  ansible.builtin.package_facts:
+
 - name: Get display device info
   tags: always
   register: common_display_info_result

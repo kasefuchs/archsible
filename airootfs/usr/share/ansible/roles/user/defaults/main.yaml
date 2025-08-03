@@ -12,6 +12,8 @@ user_groups:
   - sys
   - uucp
   - wheel
+  - "{{ 'docker' if 'docker' in ansible_facts.packages else omit }}"
+  - "{{ 'libvirt' if 'libvirt' in ansible_facts.packages else omit }}"
 
 # SSH public keys for remote login.
 user_ssh_keys: []

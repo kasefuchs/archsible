@@ -29,6 +29,7 @@ config_package_list:
 
   # Useful utilities.
   - less
+  - htop
   - dog
   - jq
 

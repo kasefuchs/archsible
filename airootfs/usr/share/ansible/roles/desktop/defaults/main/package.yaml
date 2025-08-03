@@ -15,7 +15,7 @@ desktop_package_list:
   - plasma-nm
   - plasma-pa
 
-  # KDE applications.
+  # Applications.
   - dolphin
   - partitionmanager
   - ark
@@ -30,6 +30,7 @@ desktop_package_list:
   - spectacle
   - krdc
   - krfb
+  - vlc
 
   # KDE system settings.
   - plymouth-kcm

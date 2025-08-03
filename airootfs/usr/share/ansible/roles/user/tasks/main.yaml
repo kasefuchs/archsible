@@ -44,7 +44,7 @@
           - "--ssh-authorized-keys={{ user_ssh_keys | join(',') }}"
           - "--luks-offline-discard={{ user_storage_luks_offline_discard }}"
           - "--luks-discard={{ user_storage_luks_discard }}"
-          - "--member-of={{ user_groups | join(',') }}"
+          - "--member-of={{ user_groups | reject('equalto', omit) | join(',') }}"
           - "--disk-size={{ user_disk_size }}"
           - "--fs-type={{ user_filesystem }}"
           - "--storage={{ user_storage }}"
