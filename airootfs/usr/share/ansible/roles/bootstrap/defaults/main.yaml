@@ -19,3 +19,4 @@ bootstrap_target_package_list:
 
   # Just a shell... but otters love fish!
   - fish
+  - fisher

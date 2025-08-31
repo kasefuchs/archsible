@@ -16,3 +16,9 @@ config_package_va_map:
   amd: mesa
   intel: intel-media-driver
   nvidia: nvidia-utils
+
+# Mapping of GPU vendors to top-like tools.
+config_package_top_map:
+  amd: amdgpu_top
+  intel: intel-gpu-tools
+  nvidia: nvtop

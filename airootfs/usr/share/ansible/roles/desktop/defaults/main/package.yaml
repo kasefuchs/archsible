@@ -31,12 +31,27 @@ desktop_package_list:
   - krdc
   - krfb
   - vlc
+  - plasma-systemmonitor
+  - libreoffice-still
+  - qbittorrent
+  - firefox
+  - okular
+
+  # Gaming.
+  - wine
+  - steam
+  - lutris
+
+  # Daemons.
+  - cups
+  - syncthing
 
   # KDE system settings.
   - plymouth-kcm
   - sddm-kcm
   - kscreen
   - bluedevil
+  - system-config-printer
 
   # GTK config.
   - gtk3
