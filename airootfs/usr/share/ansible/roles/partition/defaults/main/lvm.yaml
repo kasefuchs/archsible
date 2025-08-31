@@ -5,23 +5,22 @@ partition_lvm_group_name: "{{ undef(hint='You must specify the name of the main 
 # LVM volume groups with associated devices.
 partition_lvm_groups:
   - name: "{{ partition_lvm_group_name }}"
-    devices:
-      - "{{ (partition_layout_device, 2) | join_device_partition }}"
+    devices: ["{{ (partition_layout_device, 2) | join_device_partition }}"]
 
 # LVM volumes for UEFI systems.
 partition_lvm_volumes_uefi:
   - name: boot
     size: 512M
   - name: root
-    size: 16G
+    size: 20G
   - name: var
-    size: 8G
+    size: 16G
   - name: log
     size: 512M
   - name: home
     size: 32G
   - name: games
-    size: 4G
+    size: 12G
   - name: swap
     size: 1G
 

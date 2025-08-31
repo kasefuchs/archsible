@@ -14,6 +14,7 @@
   community.general.lvol:
     vg: "{{ item.group | default(partition_lvm_group_name) }}"
     lv: "{{ item.name }}"
+    pvs: "{{ item.devices | default([]) }}"
     size: "{{ item.size }}"
 
 - name: Configure filesystems
@@ -25,3 +26,4 @@
     fstype: "{{ item.type }}"
     force: "{{ item.force | default(omit) }}"
     opts: "{{ item.options | default(omit) }}"
+    resizefs: "{{ item.resize | default(omit) }}"

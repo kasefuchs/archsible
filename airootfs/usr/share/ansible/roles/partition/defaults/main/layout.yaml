@@ -10,16 +10,13 @@ partition_layout_table_uefi:
     number: 1
     start: 1MiB
     end: 261MiB
-    flags:
-      - esp
-      - boot
+    flags: [esp, boot]
 
   - device: "{{ partition_layout_device }}"
     number: 2
     start: 261MiB
     end: 100%
-    flags:
-      - lvm
+    flags: [lvm]
 
 # Partition layout for BIOS (Legacy) systems (MBR).
 # - Partition 1: /boot partition (512MiB), with boot flag for GRUB.
@@ -29,15 +26,13 @@ partition_layout_table_bios:
     number: 1
     start: 1MiB
     end: 513MiB
-    flags:
-      - boot
+    flags: [boot]
 
   - device: "{{ partition_layout_device }}"
     number: 2
     start: 513MiB
     end: 100%
-    flags:
-      - lvm
+    flags: [lvm]
 
 # List of partitions to create on the target device.
 partition_layout_table: "{{ partition_layout_table_uefi if common_boot_mode_uefi else partition_layout_table_bios }}"

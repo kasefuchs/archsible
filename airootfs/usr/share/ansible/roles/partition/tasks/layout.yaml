@@ -21,3 +21,4 @@
     fstype: "{{ item.type }}"
     force: "{{ item.force | default(omit) }}"
     opts: "{{ item.options | default(omit) }}"
+    resizefs: "{{ item.resize | default(omit) }}"
