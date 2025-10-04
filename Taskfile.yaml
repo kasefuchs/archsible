@@ -11,7 +11,7 @@ tasks:
       run_archiso -b
       -d -i "{{ .ARCHISO_IMAGE_PATH }}"
     vars:
-      ARCHISO_IMAGE_PATH: "{{ .ARCHISO_OUTPUT_DIRECTORY }}/archlinux-latest-x86_64.iso"
+      ARCHISO_IMAGE_PATH: "{{ .ARCHISO_OUTPUT_DIRECTORY }}/archsible-latest-x86_64.iso"
 
   run-uefi:
     # language="shell script"
@@ -20,7 +20,7 @@ tasks:
       {{ if .ARCHISO_SECURE_BOOT -}} -s {{- end }}
       -d -i "{{ .ARCHISO_IMAGE_PATH }}"
     vars:
-      ARCHISO_IMAGE_PATH: "{{ .ARCHISO_OUTPUT_DIRECTORY }}/archlinux-latest-x86_64.iso"
+      ARCHISO_IMAGE_PATH: "{{ .ARCHISO_OUTPUT_DIRECTORY }}/archsible-latest-x86_64.iso"
 
   build:
     # language="shell script"

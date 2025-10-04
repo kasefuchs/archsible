@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # ISO metadata
-iso_name="archlinux"
-iso_label="ARCH_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
+iso_name="archsible"
+iso_label="ARCHSIBLE_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
 iso_version="latest"
 install_dir="arch"
 
