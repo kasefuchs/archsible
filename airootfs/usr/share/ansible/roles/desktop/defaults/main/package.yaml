@@ -25,6 +25,7 @@ desktop_package_list:
   - konsole
   - gwenview
   - elisa
+  - sshfs
   - kdeconnect
   - kinfocenter
   - spectacle
@@ -60,4 +61,3 @@ desktop_package_list:
   # Display manager.
   - sddm
   - layer-shell-qt
-  - layer-shell-qt5

@@ -8,10 +8,7 @@ install_dir="arch"
 
 # Architecture and build modes
 arch="x86_64"
-bootmodes=(
-  'bios.syslinux.mbr' 'bios.syslinux.eltorito'
-  'uefi-x64.grub.esp' 'uefi-x64.grub.eltorito'
-)
+bootmodes=('bios.syslinux' 'uefi.grub')
 
 # pacman configuration
 pacman_conf="pacman.conf"
